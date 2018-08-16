@@ -23,7 +23,7 @@ namespace Pwned.Web
                 return await Task.FromResult(IdentityResult.Failed(new IdentityError
                 {
                     Code = "PwnedPassword",
-                    Description = $"Your password has been compromised/pwned {count} times. Please use a different passord."
+                    Description = $"Your password has been compromised/pwned {count} times. Please use a different password."
                 }));
             }
             return await Task.FromResult(IdentityResult.Success);
