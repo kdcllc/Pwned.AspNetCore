@@ -10,10 +10,11 @@
 	<PackageProjectUrl>https://github.com/kdcllc/Pwned.AspNetCore</PackageProjectUrl>
 	<PackageLicenseUrl>https://github.com/kdcllc/Pwned.AspNetCore/master/LICENSE</PackageLicenseUrl>
 	<PackageIconUrl>https://github.com/kdcllc/Pwned.AspNetCore/blob/master/img/logo64x64.png</PackageIconUrl>
-	<Description>.NET Core impelementation of Pwned apis</Description>
+	<Description>.Net Core Implementation of https://haveibeenpwned.com/ restful api.</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.1.1" />
