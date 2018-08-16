@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
 
 namespace Pwned.Web
 {
@@ -32,6 +34,15 @@ namespace Pwned.Web
             });
 
             services.AddPwned();
+            // or
+
+            //services.AddPwnedBreachHttpClient()
+            //   .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(30)))
+            //   .AddPolicyHandler(PwnedExtensions.ExponentialWaitAndRetry(2));
+
+            //services.AddPwnedPasswordHttpClient()
+            //      .AddTransientHttpErrorPolicy(p => p.RetryAsync(3))
+            //      .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(2)));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

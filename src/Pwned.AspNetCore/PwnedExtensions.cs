@@ -68,7 +68,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpClient(DefaultBreachName)
                .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(30)))
                .AddPolicyHandler(ExponentialWaitAndRetry(2))
-               .AddTypedClient<PwnedBreachService>();
+               .AddTypedClient<IPwnedBreachService,PwnedBreachService>();
 
             return services;
         }
@@ -88,7 +88,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHttpClient(DefaultPasswordName)
                 .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(2)))
                 .AddTransientHttpErrorPolicy(p => p.RetryAsync(3))
-                .AddTypedClient<PwnedPasswordService>();
+                .AddTypedClient<IPwnedPasswordService,PwnedPasswordService>();
             return services;
         }
 
@@ -104,7 +104,58 @@ namespace Microsoft.Extensions.DependencyInjection
             string name,
             Action<HttpClient> configureClient)
         {
+            var provider = services.BuildServiceProvider();
+            var config = provider.GetRequiredService<IConfiguration>();
+            services.Configure<PwnedOptions>(config.GetSection("Pwned"));
+
             return services.AddHttpClient<IPwnedPasswordService, PwnedPasswordService>(name, configureClient);
+        }
+
+        /// <summary>
+        /// Adds the <see cref="IHttpClientFactory"/> and related services to the <see cref="IServiceCollection"/>
+        /// and configures a binding between the <see cref="IPwnedPasswordService"/> and an <see cref="HttpClient"/>
+        /// named <see cref="DefaultPasswordName"/> to use the public HaveIBeenPwned API 
+        /// at "https://api.pwnedpasswords.com"
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddPwnedPasswordHttpClient(this IServiceCollection services)
+        {
+            return services.AddPwnedPasswordHttpClient(DefaultPasswordName, _ => { });
+        }
+
+        /// <summary>
+        /// Adds the <see cref="IHttpClientFactory"/> and related services to the <see cref="IServiceCollection"/>
+        /// and configures a binding between the <see cref="IPwnedBreachService"/> and an <see cref="HttpClient"/>
+        /// named <see cref="DefaultBreachName"/> to use the public HaveIBeenPwned API 
+        /// at "https://pwnedpasswords.com"
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddPwnedBreachHttpClient(this IServiceCollection services)
+        {
+            return services.AddPwnedBreachHttpClient(DefaultBreachName, _ => { });
+        }
+
+        /// <summary>
+        /// Adds the <see cref="IHttpClientFactory"/> and related services to the <see cref="IServiceCollection"/>
+        /// and configures a binding between the <see cref="IPwnedBreachService"/> and an <see cref="HttpClient"/>
+        /// named <see cref="DefaultBreachName"/> to use the public HaveIBeenPwned API 
+        /// at "https://pwnedpasswords.com"
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="name"></param>
+        /// <param name="configureClient"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddPwnedBreachHttpClient(this IServiceCollection services,
+            string name,
+            Action<HttpClient> configureClient)
+        {
+            var provider = services.BuildServiceProvider();
+            var config = provider.GetRequiredService<IConfiguration>();
+            services.Configure<PwnedOptions>(config.GetSection("Pwned"));
+
+            return services.AddHttpClient<IPwnedBreachService, PwnedBreachService>(name, configureClient);
         }
 
         /// <summary>
@@ -144,7 +195,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
         //https://github.com/App-vNext/Polly/issues/414#issuecomment-371932576
-        private static IAsyncPolicy<HttpResponseMessage> ExponentialWaitAndRetry(int retry)
+        public static IAsyncPolicy<HttpResponseMessage> ExponentialWaitAndRetry(int retry)
         {
             return Policy.Handle<HttpRequestException>().OrResult<HttpResponseMessage>
                 (r =>  r.StatusCode == (HttpStatusCode)429) // RetryAfter

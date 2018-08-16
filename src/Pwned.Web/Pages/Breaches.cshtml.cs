@@ -11,11 +11,11 @@ namespace Pwned.Web.Pages
 {
     public class BreachesModel : PageModel
     {
-        private readonly PwnedBreachService _pwnedBreach;
+        private readonly IPwnedBreachService _pwnedBreach;
 
         public List<Breach> Breaches { get; set; }
 
-        public BreachesModel(PwnedBreachService pwnedBreach)
+        public BreachesModel(IPwnedBreachService pwnedBreach)
         {
             _pwnedBreach = pwnedBreach;
         }

@@ -10,13 +10,13 @@ namespace Pwned.AspNetCore
     public class PwnedPasswordValidator<TUser> : IPasswordValidator<TUser>
         where TUser : class
     {
-        private readonly PwnedPasswordService _passwordService;
+        private readonly IPwnedPasswordService _passwordService;
 
         /// <summary>
-        /// Constructor for <see cref="PwnedPasswordService"/>.
+        /// Constructor for <see cref="IPwnedPasswordService"/>.
         /// </summary>
         /// <param name="passwordService"></param>
-        public PwnedPasswordValidator(PwnedPasswordService passwordService)
+        public PwnedPasswordValidator(IPwnedPasswordService passwordService)
         {
             _passwordService = passwordService;
         }
@@ -32,7 +32,7 @@ namespace Pwned.AspNetCore
                 return await Task.FromResult(IdentityResult.Failed(new IdentityError
                 {
                     Code = "PwnedPassword",
-                    Description = $"Your password has been compromised/pwned {count} times. Please use a different password."
+                    Description = $"Your password has been compromised {count} times. It is recommended that you change your password immediately"
                 })).ConfigureAwait(false);
             }
             return await Task.FromResult(IdentityResult.Success).ConfigureAwait(false);

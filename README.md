@@ -45,6 +45,16 @@ This repo comes with two projects
     ```c#
         services.AddPwned();
     ```
+    Or configuration can be done thru HttpClientExension
+    ```c#
+        services.AddPwnedBreachHttpClient()
+               .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(30)))
+               .AddPolicyHandler(PwnedExtensions.ExponentialWaitAndRetry(2));
+
+        services.AddPwnedPasswordHttpClient()
+                .AddTransientHttpErrorPolicy(p => p.RetryAsync(3))
+                .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(2)));
+    ```
 3. Add custom options configuration in `appsetting.json`
     ```json
      "Pwned": {

@@ -12,12 +12,12 @@ namespace Pwned.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly PwnedBreachService _pwnedBreachService;
-        private readonly PwnedPasswordService _pwnedPasswordService;
+        private readonly IPwnedBreachService _pwnedBreachService;
+        private readonly IPwnedPasswordService _pwnedPasswordService;
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(PwnedBreachService pwnedService, 
-            PwnedPasswordService pwnedPasswordService,
+        public IndexModel(IPwnedBreachService pwnedService, 
+            IPwnedPasswordService pwnedPasswordService,
             ILogger<IndexModel> logger)
         {
             _pwnedBreachService = pwnedService;

@@ -19,10 +19,10 @@ namespace Pwned.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<PwnedWebUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-        private readonly PwnedPasswordService _passwordService;
+        private readonly IPwnedPasswordService _passwordService;
 
         public LoginModel(SignInManager<PwnedWebUser> signInManager,
-            PwnedPasswordService passwordService,
+            IPwnedPasswordService passwordService,
             ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
