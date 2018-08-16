@@ -9,7 +9,7 @@
 	<PackageTags>Pwned, AspNetCore, AspNet,</PackageTags>
 	<PackageProjectUrl>https://github.com/kdcllc/Pwned.AspNetCore</PackageProjectUrl>
 	<PackageLicenseUrl>https://github.com/kdcllc/Pwned.AspNetCore/master/LICENSE</PackageLicenseUrl>
-	<PackageIconUrl>https://github.com/kdcllc/Pwned.AspNetCore/blob/master/img/logo64x64.png</PackageIconUrl>
+	<PackageIconUrl>https://raw.githubusercontent.com/kdcllc/Pwned.AspNetCore/master/img/logo64x64.png</PackageIconUrl>
 	<Description>.Net Core Implementation of https://haveibeenpwned.com/ restful api.</Description>
   </PropertyGroup>
 
