@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Breaches By an Email</h3>
+        <ul>
+
+            @foreach (var result in Model.BreachesCountByAccount)
+            {
+            <li><a asp-page="./Breaches" asp-route-emailAccount="@Model.EmailAccount">@Model.EmailAccount - @result</a></li>
+            }
+        </ul>
+</div>
+    <div class="col-md-4">
+        <h3>All Breaches</h3>
+        <ul>
+
+            @foreach (var result in Model.BreachesAllCount)
+            {
+                <li><a asp-page="./Breaches">@result</a></li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h3>Password</h3>
+        <ul>
+
+            @foreach (var result in Model.Pwned)
+            {
+            <li> @Model.Password - @result.pwned - @result.count</li>
+            }
+        </ul>
+    </div>
+
+</div>

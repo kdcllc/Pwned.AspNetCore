@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  pwned.web:
+    image: ${DOCKER_REGISTRY}pwnedweb
+    build:
+      context: .
+      dockerfile: src/Pwned.Web/Dockerfile

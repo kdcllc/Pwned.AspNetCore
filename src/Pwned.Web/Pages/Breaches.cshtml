@@ -1,0 +1,17 @@
+﻿@page
+@model BreachesModel
+@{
+    ViewData["Title"] = "Security Breaches";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<ul>
+
+    @foreach (var breach in Model.Breaches)
+    {
+        <li class="glyphicon-th-list">
+            @breach.Name - @breach.Title - @breach.PwnCount
+        </li>
+    }
+</ul>

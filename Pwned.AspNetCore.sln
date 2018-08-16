@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pwned.AspNetCore", "src\Pwned.AspNetCore\Pwned.AspNetCore.csproj", "{87EBACDA-70B0-4DED-99CE-55073A031FF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pwned.Web", "src\Pwned.Web\Pwned.Web.csproj", "{061F0B14-80E1-4BBB-BFEE-13131D0DC2A9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{914957E2-E1FD-4BD4-90A5-A97209333032}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7DF0686A-E31E-411A-8FAB-B753C5AF1CA0}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{36CFCF76-8613-4A67-B473-751C81FC8EDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87EBACDA-70B0-4DED-99CE-55073A031FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87EBACDA-70B0-4DED-99CE-55073A031FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87EBACDA-70B0-4DED-99CE-55073A031FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87EBACDA-70B0-4DED-99CE-55073A031FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{061F0B14-80E1-4BBB-BFEE-13131D0DC2A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{061F0B14-80E1-4BBB-BFEE-13131D0DC2A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{061F0B14-80E1-4BBB-BFEE-13131D0DC2A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{061F0B14-80E1-4BBB-BFEE-13131D0DC2A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{914957E2-E1FD-4BD4-90A5-A97209333032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{914957E2-E1FD-4BD4-90A5-A97209333032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{914957E2-E1FD-4BD4-90A5-A97209333032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{914957E2-E1FD-4BD4-90A5-A97209333032}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{87EBACDA-70B0-4DED-99CE-55073A031FF6} = {36CFCF76-8613-4A67-B473-751C81FC8EDF}
+		{061F0B14-80E1-4BBB-BFEE-13131D0DC2A9} = {36CFCF76-8613-4A67-B473-751C81FC8EDF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E123C26-5CAA-4CA2-BFB7-07551CB0034A}
+	EndGlobalSection
+EndGlobal
