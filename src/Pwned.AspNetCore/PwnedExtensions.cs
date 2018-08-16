@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Polly;
 using Pwned.AspNetCore;
@@ -13,9 +15,18 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class PwnedExtensions
     {
         /// <summary>
-        /// An extension method that adds support for:
-        /// 1. <see cref="PwnedBreachService"/>
-        /// 2. <see cref="PwnedPasswordService"/>
+        /// Default Breach Name for <see cref="HttpClientBuilderExtensions"/>
+        /// </summary>
+        public const string DefaultBreachName = nameof(PwnedBreachService);
+
+        /// <summary>
+        /// Default Password Name for <see cref="HttpClientBuilderExtensions"/>
+        /// </summary>
+        public const string DefaultPasswordName = nameof(PwnedPasswordService);
+
+
+        /// <summary>
+        /// Adds <see cref="PwnedBreachService"/> and <see cref="PwnedPasswordService"/> and related services.
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
@@ -24,21 +35,113 @@ namespace Microsoft.Extensions.DependencyInjection
             var provider = services.BuildServiceProvider();
             var config = provider.GetRequiredService<IConfiguration>();
 
-            services.Configure<PwnedOptions>(config.GetSection("Pwned"));
+            AddPwned(services, _ => config.GetSection("Pwned"));
+            return services;
+        }
 
-            var timeout = Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(10));
-
-            services.AddHttpClient("breach")
-                .AddPolicyHandler(timeout)
-                .AddPolicyHandler(ExponentialWaitAndRetry(2))
-                .AddTypedClient<PwnedBreachService>();
-
-            services.AddHttpClient("password")
-                .AddTransientHttpErrorPolicy(p => p.RetryAsync(2))
-                .AddTypedClient<PwnedPasswordService>();
+        /// <summary>
+        /// Adds <see cref="PwnedBreachService"/> and <see cref="PwnedPasswordService"/> and related services.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddPwned(this IServiceCollection services,
+            Action<PwnedOptions> options)
+        {
+            AddPwnedBreach(services, options);
+            AddPwnedPassword(services, options);
 
             return services;
         }
+
+        /// <summary>
+        /// Adds <see cref="PwnedBreachService"/> and related services.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddPwnedBreach(this IServiceCollection services,
+           Action<PwnedOptions> options)
+        {
+            services.Configure(options);
+
+            services.AddHttpClient(DefaultBreachName)
+               .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(30)))
+               .AddPolicyHandler(ExponentialWaitAndRetry(2))
+               .AddTypedClient<PwnedBreachService>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds <see cref="PwnedPasswordService"/> and related services.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddPwnedPassword(this IServiceCollection services,
+            Action<PwnedOptions> options)
+        {
+            services.Configure(options);
+
+            // The pwnedpassword API achieves 99% percentile of <1s, so this should be sufficient
+            services.AddHttpClient(DefaultPasswordName)
+                .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(2)))
+                .AddTransientHttpErrorPolicy(p => p.RetryAsync(3))
+                .AddTypedClient<PwnedPasswordService>();
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="IHttpClientFactory"/> and related services to the <see cref="IServiceCollection"/>
+        /// and configures a binding between the <see cref="IPwnedPasswordService"/> and a named <see cref="HttpClient"/>
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="name"></param>
+        /// <param name="configureClient"></param>
+        /// <returns></returns>
+        public static IHttpClientBuilder AddPwnedPasswordHttpClient(this IServiceCollection services,
+            string name,
+            Action<HttpClient> configureClient)
+        {
+            return services.AddHttpClient<IPwnedPasswordService, PwnedPasswordService>(name, configureClient);
+        }
+
+        /// <summary>
+        /// Adds a password validator that checks the password is not a pwned password using the Have I been pwned API
+        /// See https://haveibeenpwned.com/API/v2#PwnedPasswords for details.
+        /// </summary>
+        /// <typeparam name="TUser"></typeparam>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public static IdentityBuilder AddPwnedPasswordValidator<TUser>(this IdentityBuilder builder) where TUser : class
+        {
+            var provider = builder.Services.BuildServiceProvider();
+            var config = provider.GetRequiredService<IConfiguration>();
+
+            return builder.AddPwnedPasswordValidator<TUser>(configure: _ => config.GetSection("Pwned"));
+        }
+
+        /// <summary>
+        /// Adds a password validator that checks the password is not a pwned password using the Have I been pwned API
+        /// See https://haveibeenpwned.com/API/v2#PwnedPasswords for details.
+        /// </summary>
+        /// <typeparam name="TUser"></typeparam>
+        /// <param name="builder"></param>
+        /// <param name="configure"></param>
+        /// <returns></returns>
+        public static IdentityBuilder AddPwnedPasswordValidator<TUser>(
+            this IdentityBuilder builder,
+            Action<PwnedOptions> configure)
+            where TUser : class
+        {
+            if (!builder.Services.Any(x => x.ServiceType == typeof(IPwnedPasswordService)))
+            {
+                builder.Services.AddPwnedPassword(configure);
+            }
+            return builder.AddPasswordValidator<PwnedPasswordValidator<TUser>>();
+        }
+
 
         //https://github.com/App-vNext/Polly/issues/414#issuecomment-371932576
         private static IAsyncPolicy<HttpResponseMessage> ExponentialWaitAndRetry(int retry)

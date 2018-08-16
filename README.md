@@ -14,9 +14,20 @@ This repo comes with two projects
 
 1. Pwned.AspNetCore - library codebase around the restful api.
 
+    - [Get all Breaches](https://haveibeenpwned.com/api/v2/breaches)
+    - [Get all breaches for an email account.](https://haveibeenpwned.com/api/v2/breachedaccount/test@example.com)
+    - [Get all breaches for an email account - truncated filter.](https://haveibeenpwned.com/api/v2/breachedaccount/test@example.com?truncateResponse=true)
+    - [Get all breaches for an email account - domain filter.](https://haveibeenpwned.com/api/v2/breachedaccount/test@example.com?domain=adobe.com)
+    - [Get all breaches for an email account - include unverified filter.](https://haveibeenpwned.com/api/v2/breachedaccount/test@example.com?includeUnverified=true)
+    - [Get all breached sites in the system.](https://haveibeenpwned.com/api/v2/breaches?domain=adobe.com)
+    - [Get a single breached site.](https://haveibeenpwned.com/api/v2/breach/Adobe)
+    - [Get all data classes in the system.](https://haveibeenpwned.com/api/v2/dataclasses)
+    - [Get all all pastes for an email account.](https://haveibeenpwned.com/api/v2/pasteaccount/test@example.com)
+    - [Pwned Passwords.](https://api.pwnedpasswords.com/range/21BD1)
+
 2. Pwned.Web - Asp.Net Core RazorPage sample application with Identity extension to support Pwned Password validation.
 
-## Usage
+## Getting Started
 
 1. Install
 
@@ -43,31 +54,12 @@ This repo comes with two projects
         "PasswordsApiUrl": "https://api.pwnedpasswords.com"
       }
     ```
-4. Create Password Validator for Asp.Net Core Identity
+4. Add Custom Password Validator to the Asp.net Core Identity
     ```c#
-    public class PwnedPasswordValidator<TUser> : IPasswordValidator<TUser>
-        where TUser : IdentityUser
-    {
-        private readonly PwnedPasswordService _passwordService;
-
-        public PwnedPasswordValidator(PwnedPasswordService passwordService)
-        {
-            _passwordService = passwordService;
-        }
-        public async Task<IdentityResult> ValidateAsync(UserManager<TUser> manager,
-            TUser user, string password)
-        {
-            var (pwned, count) = await _passwordService.IsPasswordPwned(password);
-
-            if (pwned)
-            {
-                return await Task.FromResult(IdentityResult.Failed(new IdentityError
-                {
-                    Code = "PwnedPassword",
-                    Description = $"Your password has been compromised/pwned {count} times. Please use a different password."
-                }));
-            }
-            return await Task.FromResult(IdentityResult.Success);
-        }
-    }
+     services.AddDefaultIdentity<PwnedWebUser>()
+                    .AddEntityFrameworkStores<PwnedWebContext>()
+                    .AddPwnedPasswordValidator<PwnedWebUser>();
     ```
+
+## Additional Resources
+- [HttpClientFactory in ASP.NET Core 2.1 ](https://www.stevejgordon.co.uk/introduction-to-httpclientfactory-aspnetcore)

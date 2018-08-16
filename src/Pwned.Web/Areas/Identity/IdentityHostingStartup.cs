@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pwned.AspNetCore;
 using Pwned.Web.Areas.Identity.Data;
 using Pwned.Web.Data;
 
@@ -22,7 +23,8 @@ namespace Pwned.Web.Areas.Identity
 
                 services.AddDefaultIdentity<PwnedWebUser>()
                     .AddEntityFrameworkStores<PwnedWebContext>()
-                    .AddPasswordValidator<PwnedPasswordValidator<PwnedWebUser>>();
+                    .AddPwnedPasswordValidator<PwnedWebUser>();
+                    //.AddPasswordValidator<PwnedPasswordValidator<PwnedWebUser>>();
             });
         }
     }

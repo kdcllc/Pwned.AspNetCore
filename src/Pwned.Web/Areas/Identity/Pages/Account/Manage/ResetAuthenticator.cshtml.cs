@@ -12,9 +12,9 @@ namespace Pwned.Web.Areas.Identity.Pages.Account.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {
-        UserManager<PwnedWebUser> _userManager;
+        private UserManager<PwnedWebUser> _userManager;
         private readonly SignInManager<PwnedWebUser> _signInManager;
-        ILogger<ResetAuthenticatorModel> _logger;
+        private ILogger<ResetAuthenticatorModel> _logger;
 
         public ResetAuthenticatorModel(
             UserManager<PwnedWebUser> userManager,

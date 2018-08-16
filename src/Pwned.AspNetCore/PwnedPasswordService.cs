@@ -9,14 +9,10 @@ using Microsoft.Extensions.Options;
 
 namespace Pwned.AspNetCore
 {
-    /// <summary>
-    /// Haveibeenpwned.com password service.
-    /// </summary>
-    public class PwnedPasswordService
+    ///<inheritdoc/>
+    public class PwnedPasswordService : IPwnedPasswordService
     {
-        /// <summary>
-        /// Instance of <see cref="HttpClient"/> that was created by DI.
-        /// </summary>
+        ///<inheritdoc/>
         public HttpClient Client { get; }
 
         private readonly string _getRange = "range";
@@ -48,12 +44,7 @@ namespace Pwned.AspNetCore
             httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
         }
 
-        /// <summary>
-        /// Returns true if password was compromised and number of times it has been compromised.
-        /// </summary>
-        /// <param name="password">Does not store password anywhere simply hashes it and sends to the Resful Api.</param>
-        /// <param name="token"><see cref="CancellationToken"/></param>
-        /// <returns></returns>
+        ///<inheritdoc/>
         public async Task<(bool pwned, long count)> IsPasswordPwned(string password,
             CancellationToken token = default)
         {
@@ -84,7 +75,7 @@ namespace Pwned.AspNetCore
             var response = await Client.SendAsync(request, token).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
 
-            var result = await response.Content.ReadAsStringAsync();
+            var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var responseContainsHash = result.Contains(hashLeftover);
 
             long breachCounts = 0;
