@@ -45,7 +45,7 @@ namespace Pwned.AspNetCore
         }
 
         ///<inheritdoc/>
-        public async Task<(bool pwned, long count)> IsPasswordPwned(string password,
+        public async Task<(bool pwned, long count)> IsPasswordPwnedAsync(string password,
             CancellationToken token = default)
         {
             // Compute the SHA1 hash of the string

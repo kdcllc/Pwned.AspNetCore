@@ -77,7 +77,7 @@ namespace Pwned.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var (pwned, count) = await _passwordService.IsPasswordPwned(Input.Password);
+                var (pwned, count) = await _passwordService.IsPasswordPwnedAsync(Input.Password);
 
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true

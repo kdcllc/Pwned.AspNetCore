@@ -52,7 +52,7 @@ namespace Pwned.AspNetCore
         /// </summary>
         /// <param name="token"><see cref="CancellationToken"/></param>
         /// <returns></returns>
-        Task<List<string>> GetAllDataClasses(CancellationToken token = default);
+        Task<List<string>> GetAllDataClassesAsync(CancellationToken token = default);
 
         /// <summary>
         /// Unlike searching for breaches, usernames that are not email addresses cannot be searched for.
@@ -60,6 +60,6 @@ namespace Pwned.AspNetCore
         /// <param name="emailAccount"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task<List<PastAccount>> GetPastByAccount(string emailAccount, CancellationToken token = default);
+        Task<List<PastAccount>> GetPastByAccountAsync(string emailAccount, CancellationToken token = default);
     }
 }

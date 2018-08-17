@@ -109,7 +109,7 @@ namespace Pwned.AspNetCore
         }
 
         ///<inheritdoc/>
-        public Task<List<string>> GetAllDataClasses(CancellationToken token = default)
+        public Task<List<string>> GetAllDataClassesAsync(CancellationToken token = default)
         {
             //https://haveibeenpwned.com/api/v2/dataclasses
             var url = $"{_options.ServiceApiUrl}/{_getAllDataClasses}";
@@ -117,7 +117,7 @@ namespace Pwned.AspNetCore
         }
 
         ///<inheritdoc/>
-        public Task<List<PastAccount>> GetPastByAccount(string emailAccount,
+        public Task<List<PastAccount>> GetPastByAccountAsync(string emailAccount,
             CancellationToken token = default)
         {
             //https://haveibeenpwned.com/api/v2/pasteaccount/test@example.com

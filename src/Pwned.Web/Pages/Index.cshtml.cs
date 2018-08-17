@@ -52,7 +52,7 @@ namespace Pwned.Web.Pages
 
                 //var result = await _pwnedBreachService.GetPastByAccount(account);
 
-                var passResult = await _pwnedPasswordService.IsPasswordPwned("P@ssword");
+                var passResult = await _pwnedPasswordService.IsPasswordPwnedAsync("P@ssword");
                 passwords.Add(passResult);
 
             }

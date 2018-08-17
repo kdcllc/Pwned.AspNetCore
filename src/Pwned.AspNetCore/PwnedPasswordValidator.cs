@@ -25,14 +25,14 @@ namespace Pwned.AspNetCore
         public async Task<IdentityResult> ValidateAsync(UserManager<TUser> manager,
             TUser user, string password)
         {
-            var (pwned, count) = await _passwordService.IsPasswordPwned(password);
+            var (pwned, count) = await _passwordService.IsPasswordPwnedAsync(password);
 
             if (pwned)
             {
                 return await Task.FromResult(IdentityResult.Failed(new IdentityError
                 {
                     Code = "PwnedPassword",
-                    Description = $"Your password has been compromised {count} times. It is recommended that you change your password immediately"
+                    Description = $"The password you chose has appeared in a data breach {count} times. It is recommended that you change your password immediately"
                 })).ConfigureAwait(false);
             }
             return await Task.FromResult(IdentityResult.Success).ConfigureAwait(false);
