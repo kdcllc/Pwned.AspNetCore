@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Pwned.AspNetCore
 {
@@ -19,6 +20,6 @@ namespace Pwned.AspNetCore
         /// <param name="password">Does not store password anywhere simply hashes it and sends to the Resful Api.</param>
         /// <param name="token"><see cref="CancellationToken"/></param>
         /// <returns></returns>
-        System.Threading.Tasks.Task<(bool pwned, long count)> IsPasswordPwnedAsync(string password, CancellationToken token = default);
+        Task<(bool pwned, long count)> IsPasswordPwnedAsync(string password, CancellationToken token = default);
     }
 }

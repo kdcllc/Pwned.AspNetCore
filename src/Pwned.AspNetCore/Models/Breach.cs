@@ -111,5 +111,4 @@ namespace Pwned.AspNetCore.Models
         /// </summary>
         public string LogoType { get; set; }
     }
-
 }

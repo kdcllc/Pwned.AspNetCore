@@ -1,0 +1,28 @@
+<Project>
+
+  <PropertyGroup Label="Basic Settings">
+    <VersionPrefix>2.1.0-pre</VersionPrefix>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <NoWarn>$(NoWarn);CS1591;IDE1006;RCS1102</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Nuget Package Settings">
+    <Description>.Net Core Implementation of https://haveibeenpwned.com/ restful api.</Description>
+    <PackageIconUrl>https://raw.githubusercontent.com/kdcllc/Pwned.AspNetCore/master/img/logo64x64.png</PackageIconUrl>
+    <PackageLicense>https://github.com/kdcllc/Pwned.AspNetCore/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>https://github.com/kdcllc/Pwned.AspNetCore</PackageProjectUrl>
+    <PackageTags>Pwned, AspNetCore, AspNet</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/kdcllc/Pwned.AspNetCore.git</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Label="SourceLink Settings">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+</Project>

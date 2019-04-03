@@ -61,7 +61,7 @@ This repo comes with two projects
         "UserAgent": "Pwned.Web-Agent",
         "ServiceApiUrl": "https://haveibeenpwned.com/api/",
         "ServiceApiVersion": "2",
-        "PasswordsApiUrl": "https://api.pwnedpasswords.com"
+        "PasswordsApiUrl": "https://api.pwnedpasswords.com/"
       }
     ```
 4. Add Custom Password Validator to the Asp.net Core Identity

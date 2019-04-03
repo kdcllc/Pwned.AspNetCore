@@ -23,14 +23,10 @@ namespace Pwned.AspNetCore
         /// </summary>
         /// <param name="httpClient"><see cref="HttpClient"/> instance passed by DI injection</param>
         /// <param name="options"><see cref="IOptions{PwnedOptions}"/> instance passed by DI injection.</param>
-        public PwnedPasswordService(HttpClient httpClient,
+        public PwnedPasswordService(
+            HttpClient httpClient,
             IOptions<PwnedOptions> options)
         {
-            if (options == null)
-            {
-                throw new ArgumentNullException(nameof(options));
-            }
-
             Client = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _options = options.Value;
 
@@ -45,7 +41,8 @@ namespace Pwned.AspNetCore
         }
 
         ///<inheritdoc/>
-        public async Task<(bool pwned, long count)> IsPasswordPwnedAsync(string password,
+        public async Task<(bool pwned, long count)> IsPasswordPwnedAsync(
+            string password,
             CancellationToken token = default)
         {
             // Compute the SHA1 hash of the string
@@ -68,7 +65,7 @@ namespace Pwned.AspNetCore
             var hashLeftover = hashString.Substring(5, hashString.Length - 5);
 
             //GET https://api.pwnedpasswords.com/range/{first 5 hash chars}
-            var url = $"{_options.PasswordsApiUrl}/{_getRange}/{hashFirstFive}";
+            var url = $"{_options.PasswordsApiUrl}{_getRange}/{hashFirstFive}";
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
 

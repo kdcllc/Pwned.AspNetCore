@@ -1,26 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	<RepositoryUrl>https://github.com/kdcllc/Pwned.AspNetCore.git</RepositoryUrl>
-	<RepositoryType>git</RepositoryType>
-	<PackageTags>Pwned, AspNetCore, AspNet,</PackageTags>
-	<PackageProjectUrl>https://github.com/kdcllc/Pwned.AspNetCore</PackageProjectUrl>
-	<PackageLicenseUrl>https://github.com/kdcllc/Pwned.AspNetCore/master/LICENSE</PackageLicenseUrl>
-	<PackageIconUrl>https://raw.githubusercontent.com/kdcllc/Pwned.AspNetCore/master/img/logo64x64.png</PackageIconUrl>
-	<Description>.Net Core Implementation of https://haveibeenpwned.com/ restful api.</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity"  />
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities"  />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+		<PackageReference Include="Microsoft.Extensions.Http.Polly" />
+		<PackageReference Include="Microsoft.Extensions.Options"  />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+		<PackageReference Include="Newtonsoft.Json"  />
+	</ItemGroup>
 
 </Project>

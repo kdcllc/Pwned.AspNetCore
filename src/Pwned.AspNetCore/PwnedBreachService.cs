@@ -29,19 +29,16 @@ namespace Pwned.AspNetCore
         /// </summary>
         /// <param name="httpClient"><see cref="HttpClient"/> instance passed by DI injection</param>
         /// <param name="options"><see cref="IOptions{PwnedOptions}"/> instance passed by DI injection.</param>
-        public PwnedBreachService(HttpClient httpClient,
+        public PwnedBreachService(
+            HttpClient httpClient,
             IOptions<PwnedOptions> options)
         {
-            if (options == null)
-            {
-                throw new System.ArgumentNullException(nameof(options));
-            }
-
             _options = options.Value;
 
             Client = httpClient ?? throw new System.ArgumentNullException(nameof(httpClient));
 
             var userAgent = $"{nameof(PwnedBreachService)}-kdcllc";
+
             if (!string.IsNullOrEmpty(_options?.UserAgent))
             {
                 userAgent = _options?.UserAgent;
@@ -62,7 +59,7 @@ namespace Pwned.AspNetCore
             var args = new Dictionary<string, string>();
 
             //https://haveibeenpwned.com/api/v2/breachedaccount/test@example.com
-            var url = $"{_options.ServiceApiUrl}/{_getBreachesByAccountUri}/{WebUtility.UrlEncode(emailAccount)}";
+            var url = $"{_options.ServiceApiUrl}{_getBreachesByAccountUri}/{WebUtility.UrlEncode(emailAccount)}";
 
             if (unVerified)
             {
@@ -96,7 +93,7 @@ namespace Pwned.AspNetCore
             var args = new Dictionary<string, string>();
 
             //https://haveibeenpwned.com/api/v2/breaches
-            var url = $"{_options.ServiceApiUrl}/{_getAllBreachesUri}";
+            var url = $"{_options.ServiceApiUrl}{_getAllBreachesUri}";
 
             if (!string.IsNullOrEmpty(domain))
             {
@@ -112,7 +109,7 @@ namespace Pwned.AspNetCore
         public Task<List<string>> GetAllDataClassesAsync(CancellationToken token = default)
         {
             //https://haveibeenpwned.com/api/v2/dataclasses
-            var url = $"{_options.ServiceApiUrl}/{_getAllDataClasses}";
+            var url = $"{_options.ServiceApiUrl}{_getAllDataClasses}";
             return GetRequestAsync<List<string>>(url, token);
         }
 
@@ -121,7 +118,7 @@ namespace Pwned.AspNetCore
             CancellationToken token = default)
         {
             //https://haveibeenpwned.com/api/v2/pasteaccount/test@example.com
-            var url = $"{_options.ServiceApiUrl}/{_getPastAccount}/{WebUtility.UrlEncode(emailAccount)}";
+            var url = $"{_options.ServiceApiUrl}{_getPastAccount}/{WebUtility.UrlEncode(emailAccount)}";
             return GetRequestAsync<List<PastAccount>>(url, token);
         }
 

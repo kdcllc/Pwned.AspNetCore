@@ -21,9 +21,10 @@ namespace Pwned.Web.Areas.Identity
                     options.UseSqlite(
                         context.Configuration.GetConnectionString("PwnedWebContextConnection")));
 
+
                 services.AddDefaultIdentity<PwnedWebUser>()
                     .AddEntityFrameworkStores<PwnedWebContext>()
-                    .AddPwnedPasswordValidator<PwnedWebUser>();
+                    .AddPwnedPasswordValidator<PwnedWebUser>(context.Configuration);
                     //.AddPasswordValidator<PwnedPasswordValidator<PwnedWebUser>>();
             });
         }

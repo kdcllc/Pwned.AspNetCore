@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
+using Pwned.AspNetCore;
 
 namespace Pwned.Web
 {
@@ -35,6 +36,8 @@ namespace Pwned.Web
 
             services.AddPwned();
             // or
+
+            services.AddPwnedPassword();
 
             //services.AddPwnedBreachHttpClient()
             //   .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(30)))
