@@ -37,5 +37,4 @@ namespace Pwned.AspNetCore.Models
         /// </summary>
         public int EmailCount { get; set; }
     }
-
 }

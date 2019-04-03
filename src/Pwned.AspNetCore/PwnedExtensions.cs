@@ -114,7 +114,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Adds the <see cref="IHttpClientFactory"/> and related services to the <see cref="IServiceCollection"/>
         /// and configures a binding between the <see cref="IPwnedPasswordService"/> and an <see cref="HttpClient"/>
-        /// named <see cref="DefaultPasswordName"/> to use the public HaveIBeenPwned API 
+        /// named <see cref="DefaultPasswordName"/> to use the public HaveIBeenPwned API
         /// at "https://api.pwnedpasswords.com"
         /// </summary>
         /// <param name="services"></param>
@@ -127,7 +127,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Adds the <see cref="IHttpClientFactory"/> and related services to the <see cref="IServiceCollection"/>
         /// and configures a binding between the <see cref="IPwnedBreachService"/> and an <see cref="HttpClient"/>
-        /// named <see cref="DefaultBreachName"/> to use the public HaveIBeenPwned API 
+        /// named <see cref="DefaultBreachName"/> to use the public HaveIBeenPwned API
         /// at "https://pwnedpasswords.com"
         /// </summary>
         /// <param name="services"></param>
@@ -140,7 +140,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Adds the <see cref="IHttpClientFactory"/> and related services to the <see cref="IServiceCollection"/>
         /// and configures a binding between the <see cref="IPwnedBreachService"/> and an <see cref="HttpClient"/>
-        /// named <see cref="DefaultBreachName"/> to use the public HaveIBeenPwned API 
+        /// named <see cref="DefaultBreachName"/> to use the public HaveIBeenPwned API
         /// at "https://pwnedpasswords.com"
         /// </summary>
         /// <param name="services"></param>
@@ -201,6 +201,5 @@ namespace Microsoft.Extensions.DependencyInjection
                 (r =>  r.StatusCode == (HttpStatusCode)429) // RetryAfter
               .WaitAndRetryAsync(retry, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
         }
-
     }
 }

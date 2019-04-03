@@ -32,6 +32,5 @@
         /// https://haveibeenpwned.com/API/v2#PwnedPasswords
         /// </summary>
         public string PasswordsApiUrl { get; set; } = @"https://api.pwnedpasswords.com";
-
     }
 }

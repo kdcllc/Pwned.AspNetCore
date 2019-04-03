@@ -40,7 +40,6 @@ namespace Pwned.Web.Pages
 
             for (var i = 0; i < 2; i++)
             {
-
                 var breachesResult = await _pwnedBreachService.GetBreachesByAccountAsync(EmailAccount,true,false);
                 breaches.Add(breachesResult.Count);
 
@@ -54,7 +53,6 @@ namespace Pwned.Web.Pages
 
                 var passResult = await _pwnedPasswordService.IsPasswordPwnedAsync("P@ssword");
                 passwords.Add(passResult);
-
             }
 
             BreachesCountByAccount = breaches;
