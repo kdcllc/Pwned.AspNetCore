@@ -1,17 +1,5 @@
 <Project>
 
-  <PropertyGroup>
-    <NetCoreCommonVersion>2.2.*</NetCoreCommonVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2' Or '$(TargetFramework)' == 'netstandard2.0'">
-    <NetCoreCommonVersion>2.2.*</NetCoreCommonVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">
-    <NetCoreCommonVersion>3.0.0-preview3-*</NetCoreCommonVersion>
-  </PropertyGroup>
-
   <ItemGroup Label="NetCore">
     <PackageReference Update="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Update="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />

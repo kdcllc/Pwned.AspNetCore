@@ -5,6 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <UserSecretsId>c3c45d3c-666e-4cd7-8088-e6a8889a33da</UserSecretsId>
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

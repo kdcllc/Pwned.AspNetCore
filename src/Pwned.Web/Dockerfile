@@ -1,9 +1,9 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 50679
 EXPOSE 44388
 
-FROM microsoft/dotnet:2.1.302-sdk AS build
+FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY src/Pwned.Web/Pwned.Web.csproj src/Pwned.Web/
 COPY src/Pwned.AspNetCore/Pwned.AspNetCore.csproj src/Pwned.AspNetCore/

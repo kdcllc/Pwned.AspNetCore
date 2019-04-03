@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>914957e2-e1fd-4bd4-90a5-a97209333032</ProjectGuid>
+    <ProjectGuid>03fe4951-bba5-4da8-ac3b-4f7ca0fa113c</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>pwned.web</DockerServiceName>
