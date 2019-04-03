@@ -22,8 +22,10 @@ namespace Pwned.AspNetCore
         }
 
         ///<inheritdoc/>
-        public async Task<IdentityResult> ValidateAsync(UserManager<TUser> manager,
-            TUser user, string password)
+        public async Task<IdentityResult> ValidateAsync(
+            UserManager<TUser> manager,
+            TUser user,
+            string password)
         {
             var (pwned, count) = await _passwordService.IsPasswordPwnedAsync(password);
 

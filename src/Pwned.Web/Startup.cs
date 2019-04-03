@@ -37,7 +37,7 @@ namespace Pwned.Web
             services.AddPwned();
             // or
 
-            services.AddPwnedPassword(_=> new PwnedOptions());
+            services.AddPwnedPassword();
 
             //services.AddPwnedBreachHttpClient()
             //   .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(30)))
